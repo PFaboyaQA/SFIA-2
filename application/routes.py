@@ -1,7 +1,8 @@
-from flask import render_template, url_for, redirect, request
+from flask import render_template, url_for, redirect, Response
 from application import app, db
 from application.forms import AddGenreForm, AddGameForm, PlayerForm, DeleteForm, UpdateForm, DeleteGenreForm, DeleteGameForm, AddPlayerGame
 from application.models import Players, Genres, Games
+import requests
 
 @app.route('/')
 @app.route('/home')
@@ -48,6 +49,7 @@ def game():
 @app.route('/register', methods=['GET', 'POST'])
 def post():
         form = PlayerForm()
+        app.logger.info('check')
         if form.validate_on_submit():
                 playerData = Players(
                         first_name = form.first_name.data,
@@ -56,6 +58,10 @@ def post():
                         )
                 db.session.add(playerData)
                 db.session.commit()
+                random_number = requests.get('http://service2:5000/random_number')
+                random_string = requests.get('http://service2:5000/random_string')
+                app.logger.info(random_number.text)
+                app.logger.info(random_string.text)
                 return redirect(url_for('home'))
         else:
                 print(form.errors)
