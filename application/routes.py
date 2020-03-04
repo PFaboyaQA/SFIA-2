@@ -51,6 +51,7 @@ def post():
         form = PlayerForm()
         app.logger.info('check')
         if form.validate_on_submit():
+                player_reg_id = requests.get('http://service4:5000/catenate_player')
                 playerData = Players(
                         first_name = form.first_name.data,
                         last_name = form.last_name.data,
@@ -58,10 +59,7 @@ def post():
                         )
                 db.session.add(playerData)
                 db.session.commit()
-                random_number = requests.get('http://service2:5000/random_number')
-                random_string = requests.get('http://service2:5000/random_string')
-                app.logger.info(random_number.text)
-                app.logger.info(random_string.text)
+                app.logger.info(player_reg_id.text)
                 return redirect(url_for('home'))
         else:
                 print(form.errors)
