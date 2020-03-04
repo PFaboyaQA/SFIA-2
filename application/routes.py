@@ -30,6 +30,7 @@ def genre():
 def game():
         add_game = AddGameForm()
         if add_game.validate_on_submit():
+                game_reg_id = requests.get('http://service4:5000/catenate_game')
                 add_game_to_db = Games(
                                 game_name = add_game.game_name.data,
                                 Price = add_game.price.data,
@@ -40,6 +41,7 @@ def game():
                                 )
                 db.session.add(add_game_to_db)
                 db.session.commit()
+                app.logger.info(game_reg_id.text)
                 return redirect(url_for('game'))
         else:
                 print(add_game.errors)
