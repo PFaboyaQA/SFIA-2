@@ -24,7 +24,7 @@ def genre():
         else:
 	        print(add_genre.errors)
 	        genreData = Genres.query.all()
-        return render_template('genre.html', title='Genre', genres=genreData, form=add_genre)
+        return render_template('genre.html', title='Genres', genres=genreData, form=add_genre)
 
 @app.route('/game', methods=['GET', 'POST'])
 def game():
@@ -106,4 +106,7 @@ def playerid(player_id):
         return redirect (url_for('home'))
     return render_template('playerid.html', title='Player', player=playerData, form=form)
 
-
+@app.route('/genre/<genre_id>', methods=['GET'])
+def genreid(genre_id):
+    genreData = Genres.query.filter_by(genre_id=genre_id).first()
+    return render_template('genreid.html', title='Genre', genre=genreData)

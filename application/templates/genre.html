@@ -6,11 +6,15 @@
 
                         <div>
                                 <h2>{{ genre.genre_name }}</h2>
+				<form action="/genre/{{genre.genre_id}}">
+					<button type="submit">Games</button>
+				</form>	
                         </div>
 		{% endfor %}
 	{% else %}
                 <p>There are no genres</P>
 	{% endif %}
+	<br>
 	
 	<div class='form' action=''>
 		<form method='POST' action=''>
