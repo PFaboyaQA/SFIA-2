@@ -24,22 +24,25 @@ def genre():
         else:
 	        print(add_genre.errors)
 	        genreData = Genres.query.all()
-        return render_template('genre.html', title='Genre', genres=genreData, form=add_genre)
+        return render_template('genre.html', title='Genres', genres=genreData, form=add_genre)
 
 @app.route('/game', methods=['GET', 'POST'])
 def game():
         add_game = AddGameForm()
         if add_game.validate_on_submit():
+                game_reg_id = requests.get('http://service4:5000/catenate_game')
                 add_game_to_db = Games(
                                 game_name = add_game.game_name.data,
                                 Price = add_game.price.data,
                                 company = add_game.company.data,
                                 main_platform = add_game.main_platform.data,
                                 buyer_id = add_game.buyer_id.data,
-                                genre_id = add_game.genre_id.data
+                                genre_id = add_game.genre_id.data,
+                                game_registration_id = game_reg_id.text
                                 )
                 db.session.add(add_game_to_db)
                 db.session.commit()
+                app.logger.info(game_reg_id.text)
                 return redirect(url_for('game'))
         else:
                 print(add_game.errors)
@@ -55,7 +58,8 @@ def post():
                 playerData = Players(
                         first_name = form.first_name.data,
                         last_name = form.last_name.data,
-                        email = form.email.data
+                        email = form.email.data,
+                        player_registration_id = player_reg_id.text
                         )
                 db.session.add(playerData)
                 db.session.commit()
@@ -102,4 +106,7 @@ def playerid(player_id):
         return redirect (url_for('home'))
     return render_template('playerid.html', title='Player', player=playerData, form=form)
 
-
+@app.route('/genre/<genre_id>', methods=['GET'])
+def genreid(genre_id):
+    genreData = Genres.query.filter_by(genre_id=genre_id).first()
+    return render_template('genreid.html', title='Genre', genre=genreData)

@@ -5,6 +5,7 @@ class Players(db.Model):
         first_name = db.Column(db.String(30), nullable=False)
         last_name = db.Column(db.String(30), nullable=False)
         email = db.Column(db.String(50), nullable=False, unique=True)
+        player_registration_id = db.Column(db.String(10), unique=True)
         games = db.relationship('Games', backref='playergame', lazy=True)
 
         def __repr__(self):
@@ -29,6 +30,7 @@ class Games(db.Model):
         main_platform = db.Column(db.String(30), nullable=False)
         buyer_id = db.Column(db.Integer, db.ForeignKey('players.player_id'))
         genre_id = db.Column(db.Integer, db.ForeignKey('genres.genre_id'))
+        game_registration_id = db.Column(db.String(10), unique=True)
         
 
         def __repr__(self):

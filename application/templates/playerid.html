@@ -3,6 +3,7 @@
 
 	<h2>Name: {{ player.first_name }} {{ player.last_name}}</h2>
 	<p>Email: {{ player.email }}</p>
+	<p>Player Registration ID: {{ player.player_registration_id }} </p>
 	<form method='POST'>
 		{{form.hidden_tag() }}
 		{{ form.first_name.label }}
@@ -17,7 +18,7 @@
 	</form>
 	<p>Games: </p>
 	{% for game in player.games %}
-		{{ game.game_name }}
+		{{ game.game_name }} {{ game.game_registration_id}}
 		<br>
 	{% endfor %}
 
