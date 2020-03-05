@@ -37,7 +37,8 @@ def game():
                                 company = add_game.company.data,
                                 main_platform = add_game.main_platform.data,
                                 buyer_id = add_game.buyer_id.data,
-                                genre_id = add_game.genre_id.data
+                                genre_id = add_game.genre_id.data,
+                                game_registration_id = game_reg_id.text
                                 )
                 db.session.add(add_game_to_db)
                 db.session.commit()
@@ -57,7 +58,8 @@ def post():
                 playerData = Players(
                         first_name = form.first_name.data,
                         last_name = form.last_name.data,
-                        email = form.email.data
+                        email = form.email.data,
+                        player_registration_id = player_reg_id.text
                         )
                 db.session.add(playerData)
                 db.session.commit()
