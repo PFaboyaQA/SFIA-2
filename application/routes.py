@@ -8,7 +8,6 @@ import requests
 @app.route('/home')
 def home():
         playerData = Players.query.all()
-       # fav=Genres.query.filter_by(genre_id==Players.fav_genre).first()
         return render_template('home.html', title='Home', players=playerData)
 
 @app.route('/genre', methods=['GET', 'POST'])
