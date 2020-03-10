@@ -12,7 +12,7 @@ class PlayerForm(FlaskForm):
                         Length(min=2, max=30)
                 ]
         )
-        last_name = StringField('First Name',
+        last_name = StringField('Last Name',
                 validators = [
                         DataRequired(),
                         Length(min=2, max=30)
@@ -47,7 +47,7 @@ class AddGameForm(FlaskForm):
                         DataRequired()
                 ]
         )
-        company = StringField('Comapany',
+        company = StringField('Company',
                 validators = [
                         DataRequired(),
                         Length(min=2, max=30)
